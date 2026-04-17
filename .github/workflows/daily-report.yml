@@ -55,7 +55,9 @@ jobs:
             --days 7 \
             --max-papers 40 \
             --json \
-            --output papers.json
+            --output papers.json \
+            --exclude-history reported_pmids.json \
+            --history-window 7
         continue-on-error: true
 
       - name: Check papers data
@@ -87,7 +89,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/
+          git add docs/ reported_pmids.json
           git diff --cached --quiet && echo "No changes to commit" && exit 0
           git commit -m "😴 sleep daily report: ${{ steps.date.outputs.target }}"
           git pull --rebase origin main

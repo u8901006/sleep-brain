@@ -11,6 +11,7 @@ from datetime import datetime, timezone, timedelta
 from urllib.request import urlopen, Request
 from urllib.error import URLError
 from urllib.parse import quote_plus
+import os
 
 PUBMED_SEARCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 PUBMED_FETCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
@@ -156,6 +157,51 @@ def fetch_details(pmids: list[str]) -> list[dict]:
     return papers
 
 
+def load_excluded_pmids(history_path: str, window_days: int = 7) -> set[str]:
+    excluded = set()
+    if not history_path or not os.path.exists(history_path):
+        return excluded
+    try:
+        with open(history_path, "r", encoding="utf-8") as f:
+            history = json.load(f)
+        tz_taipei = timezone(timedelta(hours=8))
+        cutoff = (datetime.now(tz_taipei) - timedelta(days=window_days)).strftime(
+            "%Y-%m-%d"
+        )
+        for date_key, pmid_list in history.items():
+            if date_key >= cutoff:
+                excluded.update(pmid_list)
+        print(
+            f"[INFO] Loaded {len(excluded)} excluded PMIDs from last {window_days} days",
+            file=sys.stderr,
+        )
+    except Exception as e:
+        print(f"[WARN] Could not load history: {e}", file=sys.stderr)
+    return excluded
+
+
+def save_history(history_path: str, date_str: str, pmids: list[str], window_days: int = 7):
+    history = {}
+    if os.path.exists(history_path):
+        try:
+            with open(history_path, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except Exception:
+            history = {}
+    tz_taipei = timezone(timedelta(hours=8))
+    cutoff = (datetime.now(tz_taipei) - timedelta(days=window_days)).strftime(
+        "%Y-%m-%d"
+    )
+    history = {k: v for k, v in history.items() if k >= cutoff}
+    history[date_str] = pmids
+    with open(history_path, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+    print(
+        f"[INFO] Saved {len(pmids)} PMIDs to history (keeping {window_days}-day window)",
+        file=sys.stderr,
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Fetch sleep medicine papers from PubMed"
@@ -166,15 +212,38 @@ def main():
     )
     parser.add_argument("--output", default="-", help="Output file (- for stdout)")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
+    parser.add_argument(
+        "--exclude-history",
+        default="",
+        help="Path to reported_pmids.json for dedup",
+    )
+    parser.add_argument(
+        "--history-window",
+        type=int,
+        default=7,
+        help="How many days of history to check for dedup",
+    )
     args = parser.parse_args()
+
+    excluded = load_excluded_pmids(args.exclude_history, args.history_window)
+
     query = build_query(days=args.days)
     print(
         f"[INFO] Searching PubMed for papers from last {args.days} days...",
         file=sys.stderr,
     )
     pmids = search_papers(query, retmax=args.max_papers)
-    print(f"[INFO] Found {len(pmids)} papers", file=sys.stderr)
-    if not pmids:
+    print(f"[INFO] Found {len(pmids)} papers from PubMed", file=sys.stderr)
+
+    new_pmids = [p for p in pmids if p not in excluded]
+    skipped = len(pmids) - len(new_pmids)
+    if skipped:
+        print(
+            f"[INFO] Excluded {skipped} previously reported papers, {len(new_pmids)} new",
+            file=sys.stderr,
+        )
+
+    if not new_pmids:
         print("NO_CONTENT", file=sys.stderr)
         if args.json:
             print(
@@ -191,12 +260,20 @@ def main():
                 )
             )
         return
-    papers = fetch_details(pmids)
+    papers = fetch_details(new_pmids)
     print(
-        f"[INFO] Fetched details for {len(papers)} papers", file=sys.stderr
+        f"[INFO] Fetched details for {len(papers)} new papers", file=sys.stderr
     )
+
+    tz_taipei = timezone(timedelta(hours=8))
+    date_str = datetime.now(tz_taipei).strftime("%Y-%m-%d")
+
+    reported_pmids = [p["pmid"] for p in papers if p.get("pmid")]
+    if args.exclude_history:
+        save_history(args.exclude_history, date_str, reported_pmids, args.history_window)
+
     output_data = {
-        "date": datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d"),
+        "date": date_str,
         "count": len(papers),
         "papers": papers,
     }
