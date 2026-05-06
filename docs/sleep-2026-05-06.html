@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年5月6日</title>
+<meta name="description" content="2026年5月6日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年5月6日</span>
+        <span class="badge badge-count">📊 7 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻趨勢著重於「精準睡眠醫學」與「大數據分析」，亮點包含利用資料驅動找出不寧腿症候群的四大臨床表型，以及大型網路分析證實睡眠問題是連結晚型作息與憂鬱症的核心橋樑。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🦵</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>原發性不寧腿症候群的資料驅動表型分群及其縱向臨床相關性</h3>
+          <p class="journal-source">Sleep medicine &middot; Data-driven phenotypic clustering of idiopathic restless legs syndrome and its longitudinal clinical correlates.</p>
+          <p>透過數據分析將原發性不寧腿症候群分為四種臨床表型，其中「疼痛型」對鴉片類藥物需求高且預後較差，支持精準醫療介入。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">360名原發性不寧腿症候群患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">階層式聚合分群法進行表型分析</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無（觀察性比較各表型之臨床軌跡）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">長期治療模式、疾病進程與預後差異</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">不寧腿症候群</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41887116/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🕸️</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>中國成年人睡眠品質、作息型態與憂鬱症狀的關聯網路分析</h3>
+          <p class="journal-source">Sleep medicine &middot; Mapping association between sleep quality, chronotype and depressive symptoms in Chinese adults: A network analysis.</p>
+          <p>大型網路分析顯示，睡眠問題是連結晚型作息與憂鬱症狀的核心橋接節點，應優先作為臨床介入目標。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">28,312名中國成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">網路分析模型探討症狀關聯</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無（橫斷面網路分析）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">睡眠品質、作息型態與憂鬱症狀之間的核心與橋接症狀</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠與精神醫學</span><span class="tag">睡眠型態</span><span class="tag">失眠</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41887117/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">🏔️</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>藏族血統對缺氧環境下呼吸控制與中樞型睡眠呼吸中止症的影響</h3>
+          <p class="journal-source">Journal of sleep research &middot; Impact of Tibetan Ancestry on Respiratory Control and Central Sleep Apnea in Hypoxia.</p>
+          <p>具有藏族血統的個體因演化產生較遲鈍的缺氧通氣反應，能顯著降低高海拔引發的中樞型睡眠呼吸中止症。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">9名未適應的藏族男性與20名高加索男性</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">暴露於模擬3500公尺高海拔的缺氧環境</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">低海拔睡眠環境</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">睡眠呼吸中止指數(AHI)、週期性呼吸比例與通氣反應</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠呼吸生理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42086484/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">⏰</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>當解決方案可能比問題更糟：義大利睡眠醫學學會反對永久實施夏令時間的呼籲</h3>
+          <p class="journal-source">Journal of sleep research &middot; When the Solution May Be Worse Than the Problem: A Caution Against Permanent Daylight Saving Time, on Behalf of the Italian Academy of Sleep Medicine.</p>
+          <p>義大利睡眠醫學學會提出官方立場，警告永久實施夏令時間將違反人類自然晝夜節律，導致長期健康負擔。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">一般大眾與政策制定者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">永久實施夏令時間</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">維持標準時間或現行季節性調整制度</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">晝夜節律混亂與相關公共衛生影響</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠公共衛生</span><span class="tag">生物節律</span><span class="tag">晝夜節律障礙</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42086495/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🤖</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>機器學習方法在預測晝夜節律睡眠-清醒障礙中的應用：系統性回顧</h3>
+          <p class="journal-source">Chronobiology international &middot; Machine learning approaches in predicting circadian rhythm sleep-wake disorders: A review.</p>
+          <p>機器學習結合穿戴裝置與多模態數據在預測晝夜節律方面極具潛力，但目前臨床應用仍受限於樣本數不足與缺乏外部驗證。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">罹患或疑似晝夜節律睡眠-清醒障礙的成年患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">機器學習演算法預測模型</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統評估方法（如睡眠日記、褪黑激素檢測）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">晝夜節律相位預測準確度與CRSWD分類能力</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">晝夜節律障礙</span><span class="tag">睡眠科技</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42085476/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">🧬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>探討兒童與青少年時期透過體動記錄儀與家長報告之睡眠時長的遺傳率</h3>
+          <p class="journal-source">Sleep medicine &middot; Examining the heritability of actigraphy-assessed and parent-reported sleep duration in a community sample of twins across childhood and adolescence.</p>
+          <p>客觀測量的兒童睡眠時長具有高遺傳性，且隨年齡增長，主客觀測量會捕捉到不同的睡眠特徵，顯示多重評估的重要性。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">388至739對雙胞胎（追蹤8至13歲）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">體動記錄儀客觀監測與家長主觀報告</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無（縱向世代分析）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">睡眠時長的遺傳率與共享環境影響</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">體動記錄</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42085943/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">🥦</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>飲食發炎與植物化學指數作為成年人睡眠品質、作息型態與心理健康的預測因子</h3>
+          <p class="journal-source">Chronobiology international &middot; Dietary inflammatory and phytochemical indices as predictors of sleep quality, chronotype, and psychological health in adults.</p>
+          <p>攝取富含植物化學物質的飲食與晨型作息、較佳的睡眠品質及較低的憂鬱焦慮風險呈現顯著相關。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">628名健康成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">較高的飲食植物化學指數(DPI)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">較低的DPI或較高的飲食發炎指數(DII)</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">作息型態(MEQ)、睡眠品質(PSQI)與心理健康(DASS-21)</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠型態</span><span class="tag">睡眠與精神醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42085449/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">睡眠與精神醫學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">晝夜節律障礙</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">不寧腿症候群</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠公共衛生</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠科技</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">精準醫療</span><span class="keyword">不寧腿症候群</span><span class="keyword">網路分析</span><span class="keyword">睡眠呼吸生理</span><span class="keyword">機器學習</span><span class="keyword">公共衛生</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：GLM-5.1</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
