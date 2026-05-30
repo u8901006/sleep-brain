@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年5月30日</title>
+<meta name="description" content="2026年5月30日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年5月30日</span>
+        <span class="badge badge-count">📊 11 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今天的文獻趨勢顯示，人工智慧與穿戴式裝置正引領睡眠醫學走向更精細的微觀結構分析，同時多篇重磅臨床研究再次確認了睡眠對兒童注意力發展及糖尿病患者血糖控制的關鍵影響。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🤖</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>人工智慧在睡眠不穩定性與運動表型分析的應用：超越睡眠分期的臨床轉譯</h3>
+          <p class="journal-source">Sleep &middot; Artificial Intelligence for Sleep Instability and Motor Phenotyping: Clinical Translation Beyond Sleep Staging.</p>
+          <p>本篇回顧提出基於生理學的AI框架，強調分析睡眠微觀結構（如腦波不穩定軌跡）與夜間運動事件，並結合穿戴式裝置，能提供比傳統睡眠分期更具臨床價值的診斷與預後表型。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">睡眠障礙臨床評估與研究</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">基於生理學框架之多模態AI模型（整合腦波、肌電圖、心率與光體積變化描記圖等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統自動化睡眠分期或單一總結指標</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">提升睡眠微觀結構解析度，產出可解釋的臨床表型以輔助診斷、預後及治療分層</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠科技</span><span class="tag">睡眠結構</span><span class="tag">睡眠呼吸生理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42213077/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">📉</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>阻塞型睡眠呼吸中止症與糖尿病患者血糖變異性的關聯：系統性文獻回顧與統合分析</h3>
+          <p class="journal-source">Journal of sleep research &middot; Obstructive Sleep Apnea and Glycemic Variability in People With Diabetes: A Systematic Review and Meta-Analysis.</p>
+          <p>統合分析指出，阻塞型睡眠呼吸中止症(OSA)會惡化糖尿病患者的夜間血糖變異性，而使用陽壓呼吸器(CPAP)治療可顯著降低夜間血糖標準差，證實治療OSA對穩定代謝的臨床益處。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">患有糖尿病（主要為第二型）且合併阻塞型睡眠呼吸中止症的患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">連續正壓呼吸器 (CPAP) 治療</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">治療前狀態或未接受治療的對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">血糖變異性指標 (包含夜間標準差 SD 及最大血糖波動幅度 MAGE)</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42213029/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">👧</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>就寢時間與睡眠時長與6-7歲兒童注意力問題的關聯：中國深圳大規模橫斷面研究</h3>
+          <p class="journal-source">Sleep medicine &middot; Association of bedtime and sleep duration with attention problems in children aged 6-7 years: A large-scale cross-sectional study in Shenzhen, China.</p>
+          <p>針對超過1.6萬名學齡兒童的研究發現，晚睡與睡眠時間不足均獨立且呈現劑量效應地增加兒童注意力問題風險（晚於11點睡風險增8倍），強調了早睡及充足睡眠對神經發育的重要性。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">6-7歲學齡兒童 (N=16,437)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">較晚的就寢時間 (>= 9 PM) / 較短的夜間睡眠時間</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">晚上9點前就寢 / 睡眠時長 >= 10小時</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">注意力問題 (以 SNAP-26 簡版注意力不足過動症量表評估)</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠與認知</span><span class="tag">睡眠剝奪</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42208491/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">📱</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>青少年失眠的數位認知行動治療：評估 LAMBI 可行性、接受度與療效的隨機對照試驗計畫書</h3>
+          <p class="journal-source">Behavioral sleep medicine &middot; Digital Cognitive Behavioral Treatment of Insomnia in Youth: Protocol for an RCT Examining Feasibility, Acceptability, and Efficacy of LAMBI.</p>
+          <p>本計畫書旨在驗證數位認知行為治療(dCBTi)對6-12歲兒童失眠及其照顧者的療效，利用數位化介入打破傳統醫療資源不足的瓶頸，極具臨床應用潛力。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">患有失眠症的6-12歲兒童及其照顧者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">數位認知行為治療 (LAMBI)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">等待清單對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">客觀與主觀睡眠指標、日間功能 (情緒、執行功能) 與生活品質</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">CBT-I</span><span class="tag">兒童睡眠</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42210669/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>嗜睡症夜間睡眠期間的慢波活動分析</h3>
+          <p class="journal-source">Journal of sleep research &middot; Slow Wave Activity During Nocturnal Sleep in Hypersomnolence Disorder.</p>
+          <p>研究發現嗜睡症患者夜間睡眠第一個非快速動眼期(NREM)的慢波活動(SWA)顯著低於健康對照組，這項發現為嗜睡症患者「睡眠無法達到充分恢復效果」提供了關鍵的神經生理學證據。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">未用藥的嗜睡症臨床患者 與健康睡眠對照組 (HSC)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無 (觀察型研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">嗜睡症患者 vs. 健康睡眠對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">全夜與各睡眠週期的標準化慢波活動 (SWA)</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">嗜睡症</span><span class="tag">慢波睡眠</span><span class="tag">睡眠結構</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42215301/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">🦠</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>COVID-19 引發的第一型嗜睡症與猝倒：簡短病例報告</h3>
+          <p class="journal-source">Journal of sleep research &middot; COVID-19-Induced Narcolepsy Type I With Cataplexy: A Short Report.</p>
+          <p>報告了一名42歲女性在感染SARS-CoV-2後三個月內確診第一型嗜睡症(腦脊髓液食慾素極低)的罕見病例，支持了病毒感染可能誘發自體免疫反應破壞食慾素神經元的致病機轉假說。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">先前健康的42歲女性，感染COVID-19後出現嚴重嗜睡與猝倒</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">藥物治療 (Methylphenidate 及 Venlafaxine)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無 (個案報告)</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">腦脊髓液食慾素濃度極低 (<40 ng/L)，確診第一型嗜睡症，藥物治療後症狀顯著改善</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">嗜睡症</span><span class="tag">食慾素</span><span class="tag">睡眠神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42215284/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">👶</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>體動記錄儀參數選擇對一個月大嬰兒睡眠評估的影響</h3>
+          <p class="journal-source">Sleep medicine &middot; The impact of actigraphy parameter choices on sleep estimates in one-month-old infants.</p>
+          <p>研究比較了六種體動記錄儀的參數組合，發現活動閾值與時間窗長度的選擇會大幅影響一個月大嬰兒的睡眠總時間與睡眠段數評估，建議使用15次活動閾值以獲得最符合現實的估計值。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">49名一個月大母乳哺育嬰兒</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不同的體動記錄儀參數設置 (3或5分鐘時間窗，15/20/40活動閾值)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">參數間相互比較，並與兒科文獻正常值對照</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">每日睡眠總時間、睡眠段數與睡眠期長度</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">體動記錄</span><span class="tag">兒童睡眠</span><span class="tag">睡眠科技</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42214894/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>黑視蛋白介導小鼠前脂肪細胞中分子時鐘基因的熱激活</h3>
+          <p class="journal-source">Chronobiology international</p>
+          <p>基礎研究發現，低溫脈衝能透過黑視蛋白(OPN4)上调小鼠脂肪細胞的時鐘基因Per1，顯示溫度感知可能是調節周邊組織生物鐘與代謝的重要途徑。</p>
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">睡眠神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42212614/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🤝</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>晝夜節律型態與每日社會連結感：來自30天日記研究的洞察</h3>
+          <p class="journal-source">Chronobiology international</p>
+          <p>為期30天的日記研究顯示，晨型情緒較高與節律穩定度較高者，擁有較高且穩定的社會連結感，而晝夜節律區隔度高者則社會連結較弱且波動大。</p>
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">睡眠型態</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42210781/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📰</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>「只是個過渡期」還是「嚴重風險」？網路新聞媒體對青少年睡眠的論述分析</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>分析紐西蘭網路新聞發現，媒體對青少年睡眠常傳遞矛盾訊息，既說睡眠改變是正常發展，又將其連結至嚴重心理健康風險，並將管理責任全推給父母，造成家長焦慮。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42215333/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">✉️</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>回覆：「當全球政策遇上在地現實：中低收入國家的學校上學時間」</h3>
+          <p class="journal-source">Sleep medicine</p>
+          <p>針對中低收入國家學校上課時間政策的交流信件，無摘要可供詳細分析。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42214895/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">睡眠科技</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:75%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">嗜睡症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">失眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">生物節律</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠公共衛生</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:75%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠神經科學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠與認知</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠結構</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">人工智慧</span><span class="keyword">睡眠呼吸中止症</span><span class="keyword">兒童睡眠</span><span class="keyword">血糖變異</span><span class="keyword">嗜睡症</span><span class="keyword">CBT-I</span><span class="keyword">體動記錄儀</span><span class="keyword">食慾素</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：GLM-5.1</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
