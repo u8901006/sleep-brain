@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年6月3日</title>
+<meta name="description" content="2026年6月3日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年6月3日</span>
+        <span class="badge badge-count">📊 9 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻亮點集中在失眠藥物的真實世界療效、青少年晝夜節律失調對神經與腸道菌相的影響，以及慢性疼痛族群中主客觀睡眠不一致的精神病理學機轉。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">💊</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>萊博雷生治療中國失眠患者的患者報告臨床結果 (PROEM)：一項多中心、前瞻性、真實世界觀察研究</h3>
+          <p class="journal-source">Nature and science of sleep &middot; Patient-Reported Outcomes for LEMborexant Treatment in Chinese Patients with Insomnia (PROEM): A Multicenter, Prospective, Real-World Observational Study.</p>
+          <p>萊博雷生在華人成人失眠患者的真實世界研究中展現良好的療效與安全性，治療4週後有30.5%的患者達到緩解，且能同時改善焦慮與憂鬱症狀。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">臨床診斷為失眠且失眠嚴重程度指數(ISI)≥10的中國成人患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">接受 Lemborexant (萊博雷生) 治療</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組(觀察自身前後對照，包含初次使用與轉換用藥者)</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">主要終點為治療4週後的緩解率(ISI<8，達30.5%)；次要終點包含反應率、ISI分數變化及不良事件。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">食慾素</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226892/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>慢性疼痛中主觀與客觀睡眠的不一致：憂鬱症狀的角色</h3>
+          <p class="journal-source">Sleep medicine &middot; Misalignment between subjective and objective sleep in chronic pain: The role of depressive symptoms.</p>
+          <p>慢性疼痛患者的主觀睡眠品質顯著較差，但與客觀多項睡眠生理檢查(PSG)結果無關，此主客觀落差主要是由憂鬱症狀完全中介所致。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">接受診斷性多項睡眠生理檢查的成人，分為慢性疼痛組(45人)與非慢性疼痛組(161人)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">N/A (觀察性研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">慢性疼痛患者與非慢性疼痛患者的睡眠參數</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">兩組在客觀PSG參數上無顯著差異，但慢性疼痛組主觀睡眠較差；憂鬱症狀完全中介了疼痛強度對主觀睡眠效率的影響。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">睡眠與精神醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42229076/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">⏰</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>主觀睡眠時間與社會性時差與青少年獎酬回饋期間神經活化的關聯</h3>
+          <p class="journal-source">Journal of sleep research &middot; Subjective Sleep Timing and Social Jet Lag Relate to Neural Activation During Reward Feedback in Adolescence.</p>
+          <p>青少年自述的較晚睡眠時間與較高的社會性時差，與大腦獎酬迴路（如杏仁核與眶額葉皮質）在接受獎賞時的神經過度活化有顯著相關。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">ABCD資料庫中10-13歲的青少年(自述問卷n=5678; Fitbit數據n=2245)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">N/A (觀察性研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同睡眠時間(MSFsc)與社會性時差(SJL)程度的青少年</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">自述較晚的睡眠時間與較高的SJL，與在接收獎賞回饋時左側杏仁核及右側外側眶額葉皮質的較高活化度相關。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠神經科學</span><span class="tag">生物節律</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226471/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">📝</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>PROMIS 兒科睡眠困擾與睡眠相關損害量表在合併或未合併 ADHD 之早中期青少年中的心理計量特性</h3>
+          <p class="journal-source">Journal of sleep research &middot; Psychometric Properties of the PROMIS Pediatric Sleep Disturbance and Sleep-Related Impairment Self and Proxy Short Forms in Early Adolescents With and Without ADHD.</p>
+          <p>驗證了PROMIS兒科睡眠量表在早中期青少年(含ADHD患者)中具良好的信效度，且發現白天嗜睡損害與憂鬱症狀有高度獨特關聯。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">341名10-12歲的早中期青少年（約半數符合ADHD診斷標準）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">N/A (量表驗證研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">ADHD組與非ADHD組，以及自評與家長代評之間的差異</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">PROMIS睡眠量表具有良好內部一致性與收斂效度；ADHD青少年有較高的睡眠困擾與損害分數；白天損害與憂鬱呈強烈相關。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">失眠</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42227222/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🍂</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>羥嗪處方的季節性與日光節約時間相關變異：基層醫療中晝夜節律與環境調節的證據</h3>
+          <p class="journal-source">Chronobiology international &middot; Seasonal and daylight saving time-related variation in hydroxyzine prescribing: Evidence of circadian and environmental modulation in primary care.</p>
+          <p>基層醫療中Hydroxyzine的開立呈現明顯的季節性模式（冬季處方量顯著高於夏季），且女性開藥率是男性的2.76倍，但不受日光節約時間轉換的影響。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">2012至2024年間波蘭某基層醫療中心就診的成年患者(共13,625筆紀錄)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">N/A (回溯性觀察研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同季節、性別，以及日光節約時間轉換前後的處方頻率</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">冬季的每日平均處方量最高，夏季最低(冬季比夏季增加11.4%-37.5%)；女性處方頻率顯著高於男性。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42228613/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">🦠</span>
+            <span class="utility-low">低實用性</span>
+          </div>
+          <h3>青少年社會性時差與腸道菌相特徵的關聯</h3>
+          <p class="journal-source">Nature and science of sleep &middot; Associations Between Social Jetlag and Gut Microbiome Profiles in Adolescents.</p>
+          <p>青少年的社會性時差(SJL)與腸道菌相的特定類群及功能基因變化有關，而非整體菌相的多樣性改變，顯示節律失調可能引發特定的微生物群聚變化。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">120名健康的青少年(平均年齡12.69歲)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">N/A (觀察性研究)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同程度的社會性時差(SJL <2小時 vs. ≥2小時)</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">連續的SJL值與微生物α多樣性呈負相關；高SJL組別在特定的細菌分類群(如Bacteroidia)與麩胺酸脫氫酶基因上呈現差異。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">生物節律</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226891/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">🦉</span>
+            <span class="utility-low">低實用性</span>
+          </div>
+          <h3>標記有靈魂的雲雀與貓頭鷹：區分生物心理學貓頭鷹與雲雀類型學(BOLT)中的四種晝夜節律偏好—一個新的心理學晝夜節律類型概念化</h3>
+          <p class="journal-source">Chronobiology international &middot; Mark the larks and owls with souls - Differentiating between four circardian preferences in the Biopsychological Owls and Larks Typology (BOLT) - A new psychological conceptualization of chronotype.</p>
+          <p>提出了一種新的BOLT晝夜節律分類模型，將日夜型偏好結合能量調節效能，進一步細分為堅韌雲雀、脆弱雲雀、過動貓頭鷹與神經質貓頭鷹四種類型。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">1426名20-60歲的波蘭成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">填寫生物心理學貓頭鷹與雲雀類型量表(BOLTS)及其他情緒與性格量表</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">四種不同節律與能量調節類型之間的比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">驗證了四種類型結構，且這四種類型在情感與氣質變項上呈現出獨特且符合理論預期的適應與不適應模式。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">睡眠型態</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226582/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#8</span>
+            <span class="emoji-icon">🌍</span>
+            <span class="utility-low">低實用性</span>
+          </div>
+          <h3>晝夜節律與人類睡眠的文化和健康觀點</h3>
+          <p class="journal-source">Chronobiology international &middot; Cultural and health perspectives of circadian rhythms and human sleep.</p>
+          <p>本篇綜述從人類學與社會文化的角度，探討城市化、科技發展與現代生活方式如何影響人類的晝夜節律 alignment 與睡眠健康。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">探討人類睡眠模式的相關文獻(系統性文獻回顧)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">社會文化實踐、城市化與科技環境的變化</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同演化階段、年齡層與文化背景下的睡眠模式</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">現代生活方式(如人工照明、輪班工作)導致了廣泛的晝夜節律失調，需整合生物學與社會文化視角來促進睡眠健康。</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226561/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">✉️</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>關於「預後營養指數與高風險 OSA 個體死亡率的關聯及臨床 OSA 患者疾病嚴重程度的關聯」的致編輯信</h3>
+          <p class="journal-source">Nature and science of sleep</p>
+          <p>針對預後營養指數與阻塞型睡眠呼吸中止症嚴重程度及死亡率關聯的讀者投書與學術討論。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42226893/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">失眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:80%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">生物節律</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">5</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:60%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠公共衛生</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠神經科學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">食慾素</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠與精神醫學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠型態</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">失眠</span><span class="keyword">食慾素</span><span class="keyword">社會性時差</span><span class="keyword">兒童睡眠</span><span class="keyword">睡眠神經科學</span><span class="keyword">生物節律</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：GLM-5.1</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
