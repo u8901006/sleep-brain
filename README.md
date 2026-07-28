@@ -10,7 +10,7 @@ Sleep Brain 是一個自動化的睡眠醫學文獻日報系統，每日從 PubM
 
 - **資料來源**：PubMed E-utilities API
 - **目標期刊**：SLEEP、Sleep Medicine Reviews、Journal of Clinical Sleep Medicine 等 11 本頂尖睡眠醫學期刊
-- **AI 模型**：GLM-5.1（Fallback：GLM-5-Turbo → GLM-4.7 → GLM-4.7-Flash）
+- **AI 模型**：NVIDIA NIM Nemotron 3（主要模型：`nvidia/nemotron-3-super-120b-a12b`；備用模型：`nvidia/nemotron-3-nano-30b-a3b`）
 - **自動化**：GitHub Actions，每日台北時間 11:00 執行
 - **部署**：GitHub Pages
 

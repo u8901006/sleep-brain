@@ -65,7 +65,7 @@ index = f"""<!DOCTYPE html>
     <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">📬 訂閱電子報</a>
   </div>
   <footer>
-    <p>Powered by PubMed + Zhipu AI &middot; <a href="https://github.com/u8901006/sleep-brain">GitHub</a></p>
+    <p>Powered by PubMed + NVIDIA NIM (Nemotron 3) &middot; <a href="https://github.com/u8901006/sleep-brain">GitHub</a></p>
   </footer>
 </div>
 </body>
