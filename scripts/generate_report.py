@@ -15,7 +15,7 @@ import httpx
 API_BASE = os.environ.get(
     "NVIDIA_API_BASE", "https://integrate.api.nvidia.com/v1"
 )
-FALLBACK_MODELS = ["nvidia/nemotron-3-super-120b-a12b", "nvidia/nemotron-3-nano-30b-a3b"]
+FALLBACK_MODELS = ["nvidia/nemotron-3-ultra-550b-a55b"]
 
 SYSTEM_PROMPT = (
     "你是睡眠醫學領域的資深研究員與科學傳播者。你的任務是：\n"
@@ -223,7 +223,7 @@ def generate_html(analysis: dict) -> str:
     all_papers = analysis.get("all_papers", [])
     keywords = analysis.get("keywords", [])
     topic_dist = analysis.get("topic_distribution", {})
-    model_used = analysis.get("_model_used", "nvidia/nemotron-3-super-120b-a12b")
+    model_used = analysis.get("_model_used", "nvidia/nemotron-3-ultra-550b-a55b")
     total_count = len(top_picks) + len(all_papers)
 
     top_picks_html = ""
