@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年11月7日</title>
+<meta name="description" content="2026年11月7日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月7日</span>
+        <span class="badge badge-count">📊 38 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻呈現三大趨勢：人工智慧在睡眠醫學的全面應用（從分期、表型分析到依從性管理）、可穿戴設備與多夜期居家監測的驗證與臨床應用、以及睡眠與心代謝/神經退化疾病的機制與流行病學關聯研究。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🤖</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>機器學習改善問卷式睡眠呼吸中止症篩檢：多隊列多次就醫驗證研究</h3>
+          <p class="journal-source">Journal of sleep research &middot; Machine Learning Improves Questionnaire-Based Sleep Apnea Screening: A Multi-Cohort Multi-Visit Validation Study</p>
+          <p>基於問卷的 CatBoost 模型在內部驗證達 AUC 0.74-0.76，但跨隊列驗證顯示特異度顯著下降，強調多隊列外部驗證對臨床推廣的必要性。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">睡眠心臟健康研究(SHHS)與威斯康辛睡眠隊列(WSC)的成人參與者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">基於 42 項問卷特徵的 CatBoost 機器學習模型</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統評分規則、多導睡眠圖(PSG) 診斷金標準</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">AHI ≥15 時 AUC 0.75，敏感度 71%，特異度 65%；跨隊列驗證特異度降至 48.5%</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠科技</span><span class="tag">機器學習</span><span class="tag">篩檢</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42989067/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>多夜期居家耳EEG監測：慢性疼痛患者生理睡眠與翌晨疼痛強度的時序關聯</h3>
+          <p class="journal-source">Journal of sleep research &middot; Temporal Associations Between Physiological Sleep and Next-Day Pain Intensity in Individuals With Activity-Limiting Chronic Pain: A Multiple Night At-Home Ear-EEG Sleep-Monitoring Study</p>
+          <p>N3 睡眠時長、比例與穩定性增加預測翌晨疼痛降低；N3 破碎化與 N1 比例增加預測疼痛加劇，提供生理層面證據支持睡眠-疼痛雙向關係。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">19 位活動受限慢性疼痛成人（4 位困擾性、15 位高影響力）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">居家多夜期耳 EEG 監測（11-33 晚）結合每日疼痛數字評分</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">組內夜與夜變異性分析（混合效應模型）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">N3 時長 β=-0.01、比例 β=-0.07、穩定性 β=-0.01 均顯著預測疼痛降低；N3 破碎化 β=0.01、N1 比例 β=0.014 預測疼痛增加</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠結構</span><span class="tag">慢波睡眠</span><span class="tag">睡眠科技</span><span class="tag">睡眠與認知</span><span class="tag">疼痛</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42984383/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">❤️</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>不良睡眠模式與肥胖對心代謝多重疾病的交互作用：雙隊列研究</h3>
+          <p class="journal-source">Sleep health &middot; Interaction between unhealthy sleep pattern and obesity on cardiometabolic multimorbidity</p>
+          <p>不良睡眠與中心性肥胖對心代謝多重疾病呈顯著加成性交互作用（歐洲人 RERI 0.61），失眠與中心性肥胖交互作用在兩隊列均顯著，支持整合性睡眠體重干預策略。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">福清隊列 34,703 人（橫斷面）與 UK Biobank 362,474 人（前瞻性，中位 12.3 年隨訪）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不良睡眠模式（≥3/5 項特徵）合併一般/中心性肥胖</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">睡眠評分<3 且無對應肥胖的參考組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">心代謝多重疾病（≥2 種：T2DM、CHD、中風）；不良睡眠+中心性肥胖：FQC OR=3.46，UKB HR=2.55</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠公共衛生</span><span class="tag">睡眠與代謝</span><span class="tag">失眠</span><span class="tag">流行病學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42995089/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">📱</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>生態即時干預(EMI)與即時適應性干預(JITAI)改善睡眠與晝夜節律：系統性回顧與藥物分析</h3>
+          <p class="journal-source">Sleep medicine &middot; Ecological Momentary Interventions (EMIs) and Just-in-Time Adaptive Interventions (JITAIs) for sleep and circadian health: A systematic review and meta-analysis</p>
+          <p>11 項 RCT 顯示 EMI/JITAI 顯著改善睡眠效率(SMD=0.71)、失眠嚴重度(SMD=-0.87)、睡眠認知(SMD=-0.96)與憂鬱症狀(SMD=-0.76)，但睡眠品質未達顯著，且無晝夜節律結果回報。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">睡眠/晝夜節律障礙成人（11 項 RCT，3 EMI + 8 JITAI）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">生態即時干預(EMI)或即時適應性干預(JITAI)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組（待遇清單、常規照護、靜態 App 等）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">睡眠效率、失眠嚴重度指數(ISI)、睡眠認知(DBAS)、憂鬱症狀均顯著改善；睡眠品質(PQSI) 未達顯著</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">CBT-I</span><span class="tag">睡眠科技</span><span class="tag">數位治療</span><span class="tag">憂鬱症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42994167/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🫀</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>高迴路增益睡眠呼吸中止獨立預測新發心房顫動：社區隊列研究</h3>
+          <p class="journal-source">Sleep medicine &middot; Respiratory control instability during sleep is associated with incident atrial fibrillation</p>
+          <p>呼吸自相似性(SS%)與中央呼吸事件指數(CREI)測量的高迴路增益睡眠呼吸中止，在調整中央睡眠呼吸中止後仍獨立預測新發心房顫動（MrOS: OR 1.70-1.66；SHHS<65歲: OR 3.61-7.66）。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">SHHS 2,897 人與 MrOS 809 人社區隊列參與者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">多導睡眠圖衍生的高迴路增益指標：SS% 與 CREI</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統中央睡眠呼吸中止診斷標準、低 HLG 組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">新發心房顫動；MrOS 中高 SS% (≥13.5%) OR=1.70、高 CREI (≥30/hr) OR=1.66；SHHS<65歲 SS%>10.5% OR=3.61</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠呼吸生理</span><span class="tag">心房顫動</span><span class="tag">心血管風險</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42987775/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">📋</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>RCT 中 CBT-I 實施現況：範圍回顧揭示核心成分報告不一</h3>
+          <p class="journal-source">Journal of sleep research &middot; How Is Cognitive Behavioural Therapy for Insomnia Provided in Randomized Controlled Trials? A Scoping Review</p>
+          <p>分析 375 項獨特 RCT 發現：刺激控制(86.9%)、壓縮在床時間(84.5%)、認知治療(83.2%)、睡眠衛生(78.1%) 最常報告；部分研究缺核心三成分，療程中位 6 次超過建議 4 次，多為心理師面對面施行。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">375 項獨特 CBT-I RCT（197 項合併失眠）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">CBT-I 療法成分、療程數、時長、施師、模式</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">指南建議核心三成分、理想 4 療程</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">核心成分報告率 83-87%，但部分研究缺漏且未說明原因；療程中位 6 次（建議 4 次）；個別 60 分鐘、團體 90 分鐘</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">CBT-I</span><span class="tag">臨床指南</span><span class="tag">研究方法學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42988787/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">🎯</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>睡眠醫學 AI 專輯：從程式碼到床邊照護的全景式探討</h3>
+          <p class="journal-source">Sleep medicine clinics &middot; Artificial Intelligence in Sleep Medicine: From Bench Code to Bedside Care (Special Issue)</p>
+          <p>《Sleep Medicine Clinics》2026年12月專輯系統探討 AI 在睡眠醫學的多模態診斷、表型分析、依從性管理、時間治療、神經退化早期偵測、兒童應用、法規倫理與人因工程，勾勒精準睡眠醫學藍圖。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">睡眠醫學領域臨床醫師、研究者、政策制定者、AI 開發者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">12 篇綜述涵蓋 AI 睡眠分期、OSA 內型分析、CPAP 依從性、時間治療、神經退化生物標記、兒童睡眠、法規倫理等</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統人工評分、靜態協定、通用醫療模式</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">建立 AI 融入睡眠醫學的全生命週期框架，識別驗證、治理、公平性等關鍵缺口</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠科技</span><span class="tag">人工智慧</span><span class="tag">精準醫學</span><span class="tag">法規倫理</span><span class="tag">多模態分析</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977374/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#8</span>
+            <span class="emoji-icon">👶</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>兒童睡眠醫學：為最年幼患者量身訂製 AI 解決方案</h3>
+          <p class="journal-source">Sleep medicine clinics &middot; Pediatric Sleep Medicine: Tailoring Artificial Intelligence Solutions for the Youngest Patients</p>
+          <p>兒童睡眠生理發展差異大，成人演算法不可直接套用；AI 輔助 OSA 篩檢/嚴重度估計、自動分期、活動記錄/穿戴設備分析可減輕負擔、支援居家長期監測、簡化人工審閱。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">兒童睡眠醫學患者與醫療團隊</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">年齡特化訓練驗證的 AI 演算法（OSA 篩檢、睡眠分期、活動記錄分析）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">成人衍生演算法、傳統人工評分、有限的專科醫療資源</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">提升可及性、縮短等候時間、實現長期居家監測、支援發展階段特異性表型分析</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠科技</span><span class="tag">人工智慧</span><span class="tag">睡眠分期</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977362/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🦴</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>關節炎成人的休息-活動節律破碎化、功能限制與死亡率：全國代表性隊列研究</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>關節炎成人休息-活動節律較破碎（日內變異度↑）、尖峰活動量↓，功能限制解釋多數差異；節律破碎化每增加 1 SD 全因死亡率 HR=1.18，關節炎亞組 HR=1.19。</p>
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">體動記錄</span><span class="tag">睡眠公共衛生</span><span class="tag">慢性病</span><span class="tag">死亡率</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42995091/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🇨🇱</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>智利學齡前兒童睡眠與肥胖的地理區域差異分析</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>智利南部學齡前兒童夜間睡眠較長、就寢較早、睡眠中點較早（緯度效應），睡眠限制較少但肥胖率較高；肥胖相關睡眠中點提前因地區而異。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠型態</span><span class="tag">肥胖</span><span class="tag">地理流行病學</span><span class="tag">緯度效應</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42995088/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🎗️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>兒童癌症倖存者睡眠健康的社會決定因素：系統性回顧</h3>
+          <p class="journal-source">Journal of sleep research</p>
+          <p>14 項研究顯示種族/族裔、教育、就業等社會決定因素影響兒童癌症倖存者多維睡眠健康，但缺乏全面多維分析，建議建立社會生態多維模型指導干預。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">睡眠公共衛生</span><span class="tag">癌症倖存者</span><span class="tag">健康公平</span><span class="tag">社會決定因素</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42995013/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🍽️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>阿聯大學生時間營養行為與 BMI 的關聯：橫斷面研究</h3>
+          <p class="journal-source">Chronobiology international</p>
+          <p>跳過早餐、長晚間潛伏期、偏好與實際睡眠時長差異預測過重；進食窗口錯位預測肥胖，晨間潛伏期錯位預測體重過輕，凸顯飲食睡眠規律性對 BMI 管理的重要性。</p>
+          <div class="card-footer">
+            <span class="tag">生物節律</span><span class="tag">時間營養</span><span class="tag">大學生</span><span class="tag">肥胖</span><span class="tag">飲食睡眠同步</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42988456/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👵</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>主觀年齡差異與中老年人睡眠品質的縱向關聯</h3>
+          <p class="journal-source">Journal of sleep research</p>
+          <p>ELSA 研究（N=11,050+1,800）發現較佳睡眠品質、較長睡眠時長與「較年輕」主觀年齡相關；非恢復性睡眠關聯最強（β=-0.12）；主觀年齡差異可縱向預測 4 年後睡眠品質。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠品質</span><span class="tag">老化</span><span class="tag">主觀年齡</span><span class="tag">縱向研究</span><span class="tag">心理睡眠互動</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42986003/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📊</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>失眠患者生理睡眠特徵與日間功能障礙維度的關聯</h3>
+          <p class="journal-source">Journal of sleep research</p>
+          <p>SAGIC 聯盟 859 人（368 失眠）研究發現：日間功能障礙為單一因子結構；PSG 巨觀結構、EEG 頻譜功率、ORP 睡眠深度指標經多重比較校正後均無顯著關聯，提示全夜平均指標可能無法捕捉日間功能障礙。</p>
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">日間功能障礙</span><span class="tag">多導睡眠圖</span><span class="tag">EEG</span><span class="tag">睡眠深度</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42984306/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>膠質細胞調控失眠：星形膠質細胞-小膠質細胞在壓力、過度覺醒與睡眠失調中的交互作用</h3>
+          <p class="journal-source">Journal of sleep research</p>
+          <p>綜述提出雙重調控框架：星形膠質細胞調控代謝神經耦合、腺苷信號、膠淋巴清除；小膠質細胞作為免疫突觸塑造者；兩者通過嘌呤能信號、發炎回饋、鈣依賴同步作用穩定病理性過度覺醒狀態。</p>
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">睡眠神經科學</span><span class="tag">膠質細胞</span><span class="tag">神經發炎</span><span class="tag">過度覺醒</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42984298/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌙</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>重度 PTSD 創傷相關痛苦夢境在創傷記憶重啟動後優先改善：RCT 次要分析</h3>
+          <p class="journal-source">Journal of sleep research</p>
+          <p>REDUCTRAUMA2 試驗 66 例 PTSD 次要分析：痛苦夢境嚴重度在干預後大幅下降（效應量大、維持 3 月），重度 PTSD 組優先於其他症狀改善；普蕭洛爾無額外獲益，缺非重啟動對照組無法釐清 TMRP 貢獻。</p>
+          <div class="card-footer">
+            <span class="tag">PTSD</span><span class="tag">惡夢</span><span class="tag">記憶重鞏固</span><span class="tag">普蕭洛爾</span><span class="tag">創傷治療</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42984251/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌍</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>何謂 BEDReST 對青少年睡眠健康的意義：全球挑戰</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>關於青少年睡眠健康 BEDReST 框架的全球挑戰討論（摘要未提供詳細內容）。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">青少年</span><span class="tag">睡眠健康</span><span class="tag">全球衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42982701/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💍</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>Oura Ring 多夜期自由生活驗證：App 回報睡眠效率作為測量穩定性指標</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>45 位老人（74.4歲）210 晚 Oura Ring Gen3 對照 Dreem 3 EEG：Oura 低估 TST(-14.6分)、SE(-2.9%)、REM(-23.8分)，高估 SOL(+11.4分)；平均 Oura SE<85% 者偏差較大、夜間變異性較高，提示 App SE 可作為測量品質指標。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠科技</span><span class="tag">穿戴設備</span><span class="tag">老人睡眠</span><span class="tag">驗證研究</span><span class="tag">測量穩定性</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42982700/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌡️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>兒童熱舒適感、室內溫度與睡眠健康的關聯：波士頓橫斷面研究</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>321 位學齡兒童研究：照顧者回報夜間「太熱」與主觀睡眠干擾/受損評分較高相關（β=4.7, 5.9）；感測器溫度粗略模型相關但調整後信賴區間寬；兩者均與體動記錄睡眠時長/效率無關；冬季室內溫度與主觀睡眠受損相關。</p>
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">熱舒適</span><span class="tag">室內環境</span><span class="tag">主觀與客觀睡眠</span><span class="tag">季節效應</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42982699/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🏢</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>時間使用日記作為羈押者睡眠測量工具的可行性</h3>
+          <p class="journal-source">Sleep health</p>
+          <p>64 位羈押成人 4 天紙筆日記：日均總睡眠 10.5 小時（夜間 6.2、日間 4.3 小時）；56.5% 睡眠模式不符機構時程，83.9% 早餐後再睡，53.2% 白天打盹；女性有工作分配者睡眠顯著較少。</p>
+          <div class="card-footer">
+            <span class="tag">特殊族群</span><span class="tag">羈押者</span><span class="tag">睡眠型態</span><span class="tag">測量工具</span><span class="tag">結構性限制</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42982698/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>情感負荷與睡眠嚴重度匹配慢性失眠者靜息態 EEG 微狀態動態</h3>
+          <p class="journal-source">Sleep medicine</p>
+          <p>125 例治療初診慢性失眠，21 對高/低情感負荷匹配 PSQI/ISI：高情感負荷組睜眼靜息態微狀態 C 覆蓋率↑、D 覆蓋率/發生率/持續時間↓；C 覆蓋率與情感評分正相關，D 發生率與焦慮/憂鬱負相關；SVM 分類 AUC 74.8%。</p>
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">EEG微狀態</span><span class="tag">情感負荷</span><span class="tag">表型分層</span><span class="tag">神經生理標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42981850/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">😴</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>嗜睡症 1 型患者夜間睡眠起始 REM 期標記物的測試-再測穩定性差</h3>
+          <p class="journal-source">Sleep</p>
+          <p>227 例未治療 NT1 兩次 PSG：nSOREMP 兩次皆有 41.8%、僅一次 35.7%、皆無 22.4%，κ=0.26（差）；持續 nSOREMP 相關較年輕、睡潛期較短、MSLT SOREMP 較多、腦脊液 hypocretin 較低；nDREM 同樣穩定性差。缺乏 nSOREMP 不應排除 NT1。</p>
+          <div class="card-footer">
+            <span class="tag">嗜睡症</span><span class="tag">多導睡眠圖</span><span class="tag">診斷標記</span><span class="tag">Hypocretin</span><span class="tag">測試再測信度</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42980365/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📈</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>阻塞性睡眠呼吸中止症心臟自主神經關聯圖譜：大規模隊列觀察研究</h3>
+          <p class="journal-source">Sleep</p>
+          <p>9,359 例上海睡眠健康研究：147 睡眠參數與 68 HRV 指標降維後，646/1,475 配對顯著；夜間低氧血症與破碎/喚醒優先關聯調節複雜度與交感迷走平衡域；核心關聯源自呼吸事件負荷與低氧血症，方向性分歧；壓力感受器/異位域關聯稀疏。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">心率變異</span><span class="tag">自主神經</span><span class="tag">低氧血症</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42980354/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">❤️</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>人文主義與人工智慧：AI 最終會剝奪醫療的溫度嗎？</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>探討 AI 在醫療中的人文關懷與倫理張力（摘要未提供詳細內容）。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">醫療倫理</span><span class="tag">人文關懷</span><span class="tag">睡眠醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977373/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🛤️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>前路：以人工智慧實現精準與個人化睡眠醫學</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>AI 整合多模態數據流自動化臨床審閱、驅動閉環系統從靜態協定轉向響應個體生理狀態的神經調控；穿戴設備與對話式 AI 延伸至居家持續監測、個人化支援與廣泛照護框架。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">精準醫學</span><span class="tag">閉環神經調控</span><span class="tag">穿戴設備</span><span class="tag">對話式AI</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977372/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">⚖️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>AI 驅動睡眠醫學的法規、法律與倫理挑戰：整合性回顧</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>綜合 32 篇學術文獻與 8 份治理文件：識別驗證、問責、公平性等關鍵缺口，涵蓋評分者間變異性、無意識數據收集、消費級睡眠科技影響等睡眠醫學特有挑戰，呼籲專業導向治理框架。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">法規倫理</span><span class="tag">治理框架</span><span class="tag">數據隱私</span><span class="tag">算法偏見</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977371/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🤝</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>人為因素：臨床醫師與患者對睡眠醫學 AI 的觀點</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>醫師與患者整體正向但缺乏信任為採用障礙；透明度提升可改善信任與適當使用；需加強醫學教育 AI 素養；終端用戶參與開發流程可提升易用性與臨床整合。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">人為因素</span><span class="tag">信任</span><span class="tag">醫學教育</span><span class="tag">用戶中心設計</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977370/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔗</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>睡眠多模態 AI：整合多通道信號進行綜合評估</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>探討 5 大前沿：多生理數據預訓練基礎模型、達專家級自動分期、超越 AHI 的呼吸內型表徵、EEG 微結構/腦齡/神經退化生物標記、呼吸肢體共激活指數。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">多模態分析</span><span class="tag">基礎模型</span><span class="tag">睡眠分期</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977369/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📊</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>睡眠醫學中的大數據與人工智慧：機遇與障礙</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>從規則分期演進至基礎/代理模型；多元數據源與品質協調隱私治理挑戰；強調人在迴路、互操作性、持續驗證；結論：AI 大有可為，成功取決於嚴格驗證、透明治理、公平臨床部署。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">大數據</span><span class="tag">電子病歷</span><span class="tag">機器學習</span><span class="tag">法規遵循</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977368/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">☁️</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>睡眠醫學 AI 增強遠程監測：遠距照護革命</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>OSA 影響近 10 億人，PAP 依從性差；雲端遠程監測、患者參與平台、AI 實現預測性風險分層、個人化行為干預、可擴展自動化照護；多維依從框架同時解決設備/行為/動機/教育障礙；混合照護模式結合 AI 自動化與醫師監督。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">CPAP依從性</span><span class="tag">遠程監測</span><span class="tag">人工智慧</span><span class="tag">慢病管理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977367/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">⌚</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>穿戴與非接觸感測器：革新睡眠監測？</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>PSG 仍為金標準但難普及；穿戴/被動監測實現長期真實世界評估，但依賴間接測量與異質方法；AI 促進分析但帶來驗證與解釋挑戰；最好視為現有診斷框架內的補充工具。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠科技</span><span class="tag">穿戴設備</span><span class="tag">非接觸感測</span><span class="tag">驗證挑戰</span><span class="tag">臨床整合</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977366/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>睡眠醫學 AI 多重共病風險評估：超越心血管疾病</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>AI 模型已用於 OSA 篩檢/表型/依從性/心血管共病，但缺乏針對常合併 OSA 的憂鬱、癡呆、失眠、嗜睡症等疾病的篩檢與表型模型。</p>
+          <div class="card-footer">
+            <span class="tag">人工智慧</span><span class="tag">多重共病</span><span class="tag">OSA</span><span class="tag">憂鬱症</span><span class="tag">癡呆</span><span class="tag">失眠</span><span class="tag">嗜睡症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977365/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">⏰</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>時間治療與晝夜節律醫學：以 AI 個人化治療時機</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>AI 演算法應用穿戴感測器、血液轉錄組、多模態生理數據精準估計晝夜相位，優化光治療、化療、抗癲癇/抗高血壓藥物給藥時機；睡眠障礙、腫瘤、癲癇、心代謝疾病均有應用，但數據標準化、法規核准、臨床整合仍有障礙。</p>
+          <div class="card-footer">
+            <span class="tag">時間治療</span><span class="tag">晝夜節律醫學</span><span class="tag">人工智慧</span><span class="tag">個人化醫學</span><span class="tag">藥物時療</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977364/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>睡眠與神經退化：AI 在早期偵測與個人化照護的應用</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>睡眠障礙為神經退化疾病風險因子與前驅標記；膠淋巴系統解釋雙向關係；AI 自動分期、穿戴監測、數位治療提供可擴展早期偵測與睡眠健康促進工具。</p>
+          <div class="card-footer">
+            <span class="tag">神經退化</span><span class="tag">膠淋巴系統</span><span class="tag">REM睡眠行為障礙</span><span class="tag">人工智慧</span><span class="tag">早期偵測</span><span class="tag">數位治療</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977363/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🎯</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>AI 如何發掘獨特失眠表型</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>失眠診斷為單一疾病但異質性大；數據驅動方法重現表型：潛在類別分析特質亞型、客觀短睡眠表型關聯過度覺醒/心代謝風險、體動記錄特徵區分急性/慢性、大語言模型識別病歷病例；具預後治療意涵但需前瞻驗證。</p>
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">人工智慧</span><span class="tag">表型分析</span><span class="tag">精準醫學</span><span class="tag">短睡眠表型</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977360/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💨</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>正壓治療：AI 能否改善依從性與預後？</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>AI 在 OSA 篩檢/表型/風險分層/個人化治療潛力大；演算法支援 CPAP 不新，但 AI 驅動個人化提升依從性/滿意度/預後仍在萌芽；觀察性研究有希望，需獨立 RCT 驗證對神經/心血管/代謝預後的影響。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">CPAP</span><span class="tag">依從性</span><span class="tag">人工智慧</span><span class="tag">隨機對照試驗</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977359/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🎯</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>阻塞性睡眠呼吸中止症 AI 驅動診斷、內型分析與風險分層</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>多模態數據使睡眠醫學適合 AI 應用；AI 診斷 OSA 可縮短等候時間、早期治療；大數據允許詳細患者特徵分析與亞分類；AI 可輔助醫師改善工作流程、縮短症狀至診斷間隔、實現精準照護。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">人工智慧</span><span class="tag">內型分析</span><span class="tag">風險分層</span><span class="tag">精準醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977358/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🤖</span>
+            <span class="utility-high utility-sm">高</span>
+          </div>
+          <h3>自動睡眠分期：演算法準備好進入臨床了嗎？</h3>
+          <p class="journal-source">Sleep medicine clinics</p>
+          <p>AI 自動分期可提升效率與標準化，但需謹慎實施：模型必須訓練於涵蓋常見/罕見睡眠障礙的異質數據，否則可能產生不可靠臨床結果；整合前必須認知限制以促進有意義照護改善。</p>
+          <div class="card-footer">
+            <span class="tag">自動分期</span><span class="tag">深度學習</span><span class="tag">睡眠分期</span><span class="tag">臨床整合</span><span class="tag">模型限制</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977357/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">人工智慧/睡眠科技</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">14</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">7</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">失眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:42%"></div></div>
+              <span class="topic-count">6</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童/青少年睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:28%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">生物節律/時間治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:28%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">神經退化/神經科學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:28%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">心血管/代謝</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:21%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">特殊族群/環境</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:21%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">嗜睡症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">PTSD/惡夢</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">慢性疼痛</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">癌症倖存者</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">人工智慧</span><span class="keyword">睡眠呼吸中止症</span><span class="keyword">失眠</span><span class="keyword">穿戴設備</span><span class="keyword">多導睡眠圖</span><span class="keyword">心代謝疾病</span><span class="keyword">神經退化</span><span class="keyword">兒童睡眠</span><span class="keyword">時間治療</span><span class="keyword">遠程監測</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-ultra-550b-a55b</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
