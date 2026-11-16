@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年11月16日</title>
+<meta name="description" content="2026年11月16日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月16日</span>
+        <span class="badge badge-count">📊 5 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻涵蓋產前睡眠/壓力對兒童異睡症的跨代影響、中風後夜間低氧與死亡率的預後關聯、發作性睡病的腦區體積負結果、喉咽逆流與睡眠磨牙關係的族群研究，以及針灸輔助唑匹克隆減藥的臨床試驗方案，整體聚焦於睡眠呼吸生理預後、兒童睡眠發展機轉與失眠藥物減藥策略。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🧠💤</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>中風後夜間低氧參數預測全因死亡率：CHUTE 研究</h3>
+          <p class="journal-source">Sleep medicine &middot; Nocturnal hypoxaemic parameters from cardiorespiratory holter monitoring are associated with all-cause mortality in post-ischaemic stroke patients: The CHUTE study.</p>
+          <p>缺血性中風住院患者若夜間平均 SpO2 < 90%、ODI ≥ 15/h 或 T90 ≥ 10%，長期全因死亡率顯著升高，提倡在神經血管單元常規實施夜間血氧監測以早期篩選高風險個案。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">首發缺血性中風住院成人患者（n=1113，平均 65.8 歲）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">心呼吸霍爾特監測記錄之夜間低氧指標（平均 SpO2、ODI、T90 等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">低氧指標未達閾值者（平均 SpO2 ≥ 90%、ODI < 15/h、T90 < 10%）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">全因死亡率（平均追蹤 1532 天，HR 1.34-1.58）</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠呼吸生理</span><span class="tag">睡眠與神經科學</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035083/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🤰👶</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>母親孕期睡品差與負向生活事件雙重暴露增加學齡前兒童異睡症風險</h3>
+          <p class="journal-source">Nature and science of sleep &middot; Combined Associations of Maternal Sleep Quality and Prenatal Negative Life Events with Childhood Parasomnias.</p>
+          <p>孕期睡品差直接增加子代異睡症風險（aOR 1.40），若合併負向生活事件風險更顯著（aOR 1.78），且家庭支持低者關聯更強，凸顯產前睡眠與心理衛生的跨代影響。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">學齡前兒童（n=6236）及其母親回顧性填答孕期三階段睡品與壓力</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">母親孕期睡品差（PSQI 評估）與/或負向生活事件暴露</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無暴露組、單一暴露組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">兒童異睡症患病率（CSHQ 評估，總體 25.7%，雙重暴露組 37.3%）</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">異睡症</span><span class="tag">睡眠與精神醫學</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43036740/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">🧬🔬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>3T MRI 體積分析顯示發作性睡病第一型無海馬體、杏仁核、視丘、腦幹亞區萎縮</h3>
+          <p class="journal-source">Sleep medicine &middot; MRI-based volume assessments show no changes in hippocampus, amygdala, thalamus and brainstem subregions in narcolepsy type 1.</p>
+          <p>大樣本自動化分段分析發現 NT1 患者關鍵腦區亞結構體積與對照組無差異，提示結構性萎縮非 NT1 病理核心，未來需多中心研究探索微細改變。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">NT1 患者 54 例（51 例缺乏食慾素確診）vs 健康對照 114 例</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">3T T1 加權 MRI 經 FreeSurfer 自動分段量測腦區亞結構體積</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">年齡性別配對之健康對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">海馬體、杏仁核、視丘、腦幹所有亞區體積經 FDR 校正後均無顯著差異</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">嗜睡症</span><span class="tag">睡眠神經科學</span><span class="tag">食慾素</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035082/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">🦷📉</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>喉咽逆流與睡眠磨牙在一般成人族群無獨立關聯，但合併阻塞性睡眠呼吸中止症者相關性增強</h3>
+          <p class="journal-source">Sleep medicine &middot; Is sleep bruxism associated with laryngopharyngeal reflux in EPISONO adult general population?</p>
+          <p>一般族群中 LPR 與 SB（自我報告、PSG 或兩者結合）經混雜因子調整後無顯著關聯；唯合併 OSA 亞群中 LPR 與 SB 發生率較高，提示兩者交互作用而非單向因果。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">巴西聖保勞流行病學睡眠研究成人樣本 686 例（平均 50.1 歲）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">喉咽逆流症狀指數 (RSI) 診斷 LPR</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無 LPR 組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">睡眠磨牙患病率（自我報告 23.9%、PSG 33.6%、兩者兼具 10.4%），調整後無顯著差異</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">異睡症</span><span class="tag">睡眠呼吸生理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035081/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">📋🪡</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>針灸輔助慢性失眠患者減停唑匹克隆酒石酸鹽的隨機對照試驗方案</h3>
+          <p class="journal-source">Nature and science of sleep &middot; Acupuncture-Assisted Zolpidem Tartrate Tapering and Discontinuation in Patients with Chronic Insomnia Disorder Stabilized on Zolpidem: A Study Protocol for a Randomized Controlled Trial.</p>
+          <p>單中心單盲 RCT 方案（n=90），驗證針灸配合 8 週漸減療程於第 8 週達到停藥率之主要終點，提供標準化減藥協議的初步證據基礎。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">慢性失眠障礙且症狀穩定服用唑匹克隆之成人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">真針灸 + 唑匹克隆漸減方案（24 次/8 週）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">假針灸 + 相同漸減方案</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">第 8 週停藥率（主要）、ISI、焦慮憂鬱量表、睡眠日誌、不良事件（次要）</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">失眠</span><span class="tag">CBT-I</span><span class="tag">睡眠科技</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43034795/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">異睡症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">嗜睡症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">失眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">缺血性中風</span><span class="keyword">夜間低氧</span><span class="keyword">產前睡眠</span><span class="keyword">異睡症</span><span class="keyword">發作性睡病第一型</span><span class="keyword">喉咽逆流</span><span class="keyword">睡眠磨牙</span><span class="keyword">針灸減藥</span><span class="keyword">唑匹克隆</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-ultra-550b-a55b</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
