@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sleep Brain &middot; 睡眠醫學文獻日報 &middot; 2026年11月26日</title>
+<meta name="description" content="2026年11月26日 睡眠醫學文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #0d1b2a; --surface: #1b2838; --line: #2a3f55; --text: #e0e6ed; --muted: #8899aa; --accent: #00b4d8; --accent-soft: rgba(0,180,216,0.12); --card-bg: rgba(27,40,56,0.92); --glow: rgba(0,180,216,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #162447 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, rgba(0,180,216,0.04) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(72,149,239,0.03) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), #4895ef); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,180,216,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid rgba(0,180,216,0.3); color: var(--accent); }
+  .badge-count { background: rgba(0,180,216,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 40px var(--glow); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: linear-gradient(135deg, var(--accent), #4895ef); color: #fff; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #4ade80; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(74,222,128,0.1); border-radius: 4px; }
+  .utility-mid { color: #fbbf24; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(251,191,36,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(136,153,170,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(13,27,42,0.6); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(0,180,216,0.2); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 120px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #4895ef); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,180,216,0.1); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .newsletter-desc { font-size: 12px; color: var(--muted); font-weight: 400; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } .clinic-links { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">😴</div>
+    <div class="header-text">
+      <h1>Sleep Brain &middot; 睡眠醫學文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月26日</span>
+        <span class="badge badge-count">📊 8 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻亮點聚焦於睡眠呼吸中止症表型分層（REM-predominant OSA 的認知影響）、口腔裝置長期真實世界依從性與失效原因、以及 PAP 自動演算法與人工判讀的一致性驗證；另見兒青 SCT/ADHD 晚型型態流行病學、短影音成癮導致晝夜節律延遲的縱向機制、環境因子對中老年睡眠的影響，以及 AI 睡眠醫學的法規倫理缺口。</p>
+  </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>REM 優勢型阻塞性睡眠呼吸中止症的神經認知與行為相關性</h3>
+          <p class="journal-source">Journal of Sleep Research &middot; Neurocognitive and Behavioural Correlates of REM-Predominant Obstructive Sleep Apnoea</p>
+          <p>REM 型 OSA 雖總 AHI 較低，但獨立預測執行功能較差（TMT-A/B 顯著延長）與衝動性較高，提示臨床不應忽視此表型的認知風險。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">74 位中重度 OSA 成人（13 位 REM-OSA、61 位 NREM-OSA）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無介入（橫斷面表型比較）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">NREM 優勢型 OSA 病人</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">TMT-A、TMT-B、TMT B-A 顯著較長；BIS-11 衝動性分數較高；調整憂鬱症狀後仍獨立顯著</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠與認知</span><span class="tag">REM睡眠行為障礙</span><span class="tag">睡眠呼吸生理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43094391/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🦷</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>中等度至重度阻塞性睡眠呼吸中止症病人長期使用下頜前移裝置的真實世界研究</h3>
+          <p class="journal-source">Sleep Medicine &middot; Long-term use of mandibular advancement device in patients with moderate (to severe) obstructive sleep apnea: a prospective real-life study</p>
+          <p>4.5 年追蹤顯示近半數病人停用 MAD，主因為主觀/客觀療效不佳（殘留 AHI 較高）與牙齒副作用（隨時間增加），停用後多數轉用 CPAP 且依從性良好。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">179 位非肥胖、中重度 OSA 成人（無嚴重心代併發症/過度嗜睡）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">下頜前移裝置（MAD）治療</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">基線多導睡眠圖與 6 個月滴定效果；自身對照（持續使用 vs. 停用群）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">45.5% 停用（平均 4.5 年）；停用主因：效益-副作用平衡差（58.5%，殘留 AHI 為關鍵預測因子）與牙齒問題（41.5%，隨使用年限上升）；73.8% 轉用 CPAP 依從佳</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠呼吸生理</span><span class="tag">睡眠科技</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43085176/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">📊</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>正壓呼吸器自動事件偵測與人工判讀 AHI 一致性的系統性回顧與荟萃分析</h3>
+          <p class="journal-source">Sleep Medicine Reviews &middot; Positive airway pressure automatic event detection versus manual scoring of the apnea hypopnea index: A systematic review and meta-analysis</p>
+          <p>AED 與人工判讀 AHI 平均差異小（-0.53 事件/時）但異質性極大（I²=98%），且有隨年代低估趨勢；敏感度（0.70-0.82）低於特異度（0.87-0.92），存在非無視的假陰性風險。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">23 研究、1990 位成人 OSA 病人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">PAP 內建自動事件偵測演算法（AED）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">人工判讀多導睡眠圖 AHI（金標準）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">Bland-Altman 平均差 -0.53 事件/時（95%CI -1.74~0.57）；相關係數 0.79；AHI≥10 時敏感度 0.70、特異度 0.92；證據確定度低</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠呼吸中止症</span><span class="tag">睡眠科技</span><span class="tag">睡眠呼吸生理</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43084859/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">📱</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>短影音成癮與中國青少年內源性晝夜相位延遲的三波縱向研究</h3>
+          <p class="journal-source">Sleep Health &middot; Short-video addiction and circadian phase delay in Chinese adolescents and emerging adults: A three-wave longitudinal study with a nested dim-light melatonin assessment</p>
+          <p>短影音成癮嚴重度隨學階上升（國中 18%→大學 36%），相位延遲關聯從國中 0.92 時增至大學 2.15 時；健康行為中介 65.7%，主導路徑隨學階從身體活動→睡眠/飲食→心理壓力轉變。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">1660 位中國學生（國中 520、高中 610、大學 530）；巢狀亞組 120 位受唾液褪黑激素測定</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無介入（觀察性縱向追蹤）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">SVAS 高分組（≥31）vs. 低分組（≤15）；跨學階比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">相位延遲關聯隨學階增強（比率 2.34）；中介路徑隨學階/性別不同；夜間使用 90 分鐘為潛在斷點</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">晝夜節律障礙</span><span class="tag">兒童睡眠</span><span class="tag">睡眠與精神醫學</span><span class="tag">生物節律</span><span class="tag">睡眠公共衛生</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43086166/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🌳</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>環境因子與中老年睡眠健康的關聯：加拿大老化縱向研究發現</h3>
+          <p class="journal-source">Sleep Health &middot; Environmental factors associated with sleep health in middle-aged and older adults: Findings from the Canadian longitudinal study on aging</p>
+          <p>3 萬人大樣本證實綠地指數（NDVI）持續關聯較好睡眠（縮短入睡潛伏期、延長睡眠時間），路口密度高關聯睡眠不滿意與縮短睡眠，光/噪音汙染與濕度亦有影響。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">30,097 位加拿大中老年成人（CLSA 綜合隊列）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無介入（環境暴露觀察性研究）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同環境暴露層級（綠地、空汙、噪音、光汙染、濕度、路網密度）</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">NDVI ↑ → 入睡潛伏期延長風險 ↓、睡眠時間 ↑；路口密度 ↑ → 睡眠不滿意 ↑、睡眠時間 ↓；夜間光照 ↑、濕度 ↑ → 睡眠時間 ↓；空汙結果不一致</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠公共衛生</span><span class="tag">睡眠型態</span><span class="tag">老化</span><span class="tag">環境醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43086167/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">🌙</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>SCT �狀兒童青少年的晨型/晚型差異：伴隨 ADHD 與否的比較</h3>
+          <p class="journal-source">Chronobiology International &middot; Chronotype in children and adolescents with elevated Sluggish Cognitive Tempo symptoms with and without ADHD</p>
+          <p>高 SCT 組（無論合併 ADHD）顯著偏向晚型（SCT+ADHD 75% 為晚型），白天嗜睡顯著較高且與晚型正相關；SCT 嚴重度在全樣本預測晚型，但在 SCT 陽性亞組內不顯著，提示群體差異主導。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">180 位 6-18 歲兒童青少年（高 SCT 60、SCT+ADHD 60、對照 60）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無介入（病例對照橫斷面研究）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">高 SCT 組 vs. SCT+ADHD 組 vs. 健康對照組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">晚型比例：SCT+ADHD 75% > 高 SCT > 對照（16.7% 早型）；PDSS 嗜睡分數兩 SCT 組顯著高於對照；晚型與嗜睡正相關（r=.31）</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">兒童睡眠</span><span class="tag">晝夜節律障礙</span><span class="tag">睡眠與精神醫學</span><span class="tag">睡眠與認知</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43094116/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">⚖️</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>人工智慧睡眠醫學的法規、法律與倫理挑戰：整合性回顧</h3>
+          <p class="journal-source">Sleep Medicine Clinics &middot; Regulatory, Legal, and Ethical Challenges in Artificial Intelligence-powered Sleep Medicine: An Integrative Review</p>
+          <p>綜合 32 篇學術文獻與 8 份治理文件，指出 AI 睡眠醫學在驗證標準、問責機制、公平性（如評分者間變異、無意識數據蒐集、消費性睡眠科技）存在關鍵缺口，呼籲建立專科感知治理框架。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">睡眠醫學領域 AI 應用相關文獻與治理文件</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無介入（整合性文獻回顧）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">現行醫療 AI 治理框架 vs. 睡眠醫學特有需求</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">識別驗證、問責、公平三大缺口；提出專科感知治理框架發展方向</span></div>
+            </div>
+          
+          <div class="card-footer">
+            <span class="tag">睡眠科技</span><span class="tag">睡眠公共衛生</span><span class="tag">睡眠呼吸中止症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42977371/" target="_blank">閱讀原文 →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='section'><div class='section-title'><span class='section-icon'>📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💭</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>睡眠時長代表主觀體驗：公共衛生建議必須錨定在體驗睡眠上</h3>
+          <p class="journal-source">Sleep Health</p>
+          <p>觀點文章主張睡眠建議應以主觀體驗睡眠為核心，而非單純客觀測量時長。</p>
+          <div class="card-footer">
+            <span class="tag">睡眠公共衛生</span><span class="tag">睡眠型態</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43086168/" target="_blank">PubMed →</a>
+          </div>
+        </div>
+        </div>
+
+  <div class='topic-section section'><div class='section-title'><span class='section-icon'>📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸中止症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">晝夜節律障礙</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">兒童睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠與認知</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠科技</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠公共衛生</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠與精神醫學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">生物節律</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">睡眠呼吸生理</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">REM睡眠行為障礙</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            
+            <div class="topic-row">
+              <span class="topic-name">環境醫學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            </div>
+
+  <div class='keywords-section section'><div class='section-title'><span class='section-icon'>🏷️</span>關鍵字</div><div class='keywords'><span class="keyword">REM優勢型OSA</span><span class="keyword">下頜前移裝置長期依從性</span><span class="keyword">PAP自動演算法驗證</span><span class="keyword">短影音成癮晝夜節律</span><span class="keyword">環境因子睡眠健康</span><span class="keyword">SCT晚型</span><span class="keyword">AI睡眠醫學治理</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報 <span class="newsletter-desc">· 掌握最新睡眠醫學資訊</span></span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-ultra-550b-a55b</span>
+    <span><a href="https://github.com/u8901006/sleep-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
